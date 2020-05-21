@@ -1,17 +1,20 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using System.Threading;
+using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace DB_Test
 {
     public class Tests
     {
         private IWebDriver driver;
-     
+        private WebDriverWait wait;
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             driver = new OpenQA.Selenium.Chrome.ChromeDriver();
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
         }
 
         [SetUp]
@@ -27,6 +30,7 @@ namespace DB_Test
             driver.Close();
             driver.Quit();
         }
+
         [Test]
         public void Test1_LogIn()
         {
@@ -37,6 +41,7 @@ namespace DB_Test
             driver.FindElement(By.XPath("//input[@type=\'submit\']")).Click();
             Assert.That(driver.FindElement(By.XPath("//h2[contains(.,\'Home page\')]")).Text, Is.EqualTo("Home page"));
         }
+
         [Test]
         public void Test2_InsertNew()
         {
@@ -62,6 +67,7 @@ namespace DB_Test
             driver.FindElement(By.CssSelector(".btn")).Click();
             Assert.That(driver.FindElement(By.XPath("//h2[contains(.,\'All Products\')]")).Text, Is.EqualTo("All Products"));
         }
+
         [Test]
         public void Test3_Open()
         {
@@ -99,16 +105,13 @@ namespace DB_Test
             }
         }
 
-
         [Test]
         public void Test4_Delete()
         {
             driver.FindElement(By.CssSelector(".container-fluid:nth-child(3) > div:nth-child(1) > a")).Click();
             driver.FindElement(By.XPath("//tr/td/a[text()=\"Biscuits\"]//following::td//a[text()=\"Remove\"]")).Click();
             driver.SwitchTo().Alert().Accept();
-            Thread.Sleep(100); 
-            //C явным/неявным ожиданием проваливается тест, поставил Sleep
-
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(By.XPath("//tr/td/a[text()=\"Biscuits\"]")));
             var element = driver.FindElements(By.XPath("//tr[last()]/td/a[text()=\"Biscuits\"]"));
             Assert.True(element.Count == 0);
         }
@@ -119,6 +122,8 @@ namespace DB_Test
             driver.FindElement(By.LinkText("Logout")).Click();
             Assert.That(driver.FindElement(By.XPath("//h2[contains(.,\'Login\')]")).Text, Is.EqualTo("Login"));
         }
+
+        
     }
 }
 
