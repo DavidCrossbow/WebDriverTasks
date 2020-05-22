@@ -97,4 +97,5 @@ C:\Users\Cellar Door\source\repos\DB_Test\DB_Test\bin\Debug\netcoreapp3.1\Seleni
 C:\Users\Cellar Door\source\repos\DB_Test\DB_Test\obj\Debug\netcoreapp3.1\DB_Test.dll
 C:\Users\Cellar Door\source\repos\DB_Test\DB_Test\obj\Debug\netcoreapp3.1\DB_Test.pdb
 C:\Users\Cellar Door\source\repos\DB_Test\DB_Test\bin\Debug\netcoreapp3.1\testhost.exe
+C:\Users\Cellar Door\source\repos\DB_Test\DB_Test\bin\Debug\netcoreapp3.1\SeleniumExtras.PageObjects.dll
 C:\Users\Cellar Door\source\repos\DB_Test\DB_Test\obj\Debug\netcoreapp3.1\DB_Test.csproj.CoreCompileInputs.cache

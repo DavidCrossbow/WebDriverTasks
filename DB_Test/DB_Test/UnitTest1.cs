@@ -9,19 +9,25 @@ namespace DB_Test
     {
         private IWebDriver driver;
         private WebDriverWait wait;
+        private MainPage mainPage;
+        private AllProductsPage allProductsPage;
+        private EditPage editPage;
+        private Assertions assertions;
+        
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             driver = new OpenQA.Selenium.Chrome.ChromeDriver();
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            mainPage = new MainPage(driver, wait);
+            assertions = new Assertions(driver);
         }
 
         [SetUp]
         public void SetUp()
         {
             driver.Navigate().GoToUrl("http://localhost:5000/");
-            // каждый тест начинается  с указанного URL
         }
 
         [OneTimeTearDown]
@@ -34,93 +40,60 @@ namespace DB_Test
         [Test]
         public void Test1_LogIn()
         {
-            Assert.That(driver.FindElement(By.XPath("//h2[contains(.,\'Login\')]")).Text, Is.EqualTo("Login"));
-            driver.FindElement(By.Id("Name")).Click();
-            driver.FindElement(By.Id("Name")).SendKeys(LogIn.Username);
-            driver.FindElement(By.Id("Password")).SendKeys(LogIn.Password);
-            driver.FindElement(By.XPath("//input[@type=\'submit\']")).Click();
-            Assert.That(driver.FindElement(By.XPath("//h2[contains(.,\'Home page\')]")).Text, Is.EqualTo("Home page"));
+            Assert.That(assertions.ReturnHeader("Login"), Is.EqualTo("Login"));
+            mainPage.LogIn(LogInData.Username, LogInData.Password);
+            Assert.That(assertions.ReturnHeader("Home page"), Is.EqualTo("Home page"));
         }
 
         [Test]
         public void Test2_InsertNew()
         {
-            driver.FindElement(By.CssSelector(".container-fluid:nth-child(3) > div:nth-child(1) > a")).Click();
-            Assert.That(driver.FindElement(By.XPath("//h2[contains(.,\'All Products\')]")).Text, Is.EqualTo("All Products"));
-            driver.FindElement(By.LinkText("Create new")).Click();
-            Assert.That(driver.FindElement(By.CssSelector("h2")).Text, Is.EqualTo("Product editing"));
-            driver.FindElement(By.Id("ProductName")).SendKeys(Data.ProductName);
-            {
-                var dropdown = driver.FindElement(By.Id("CategoryId"));
-                dropdown.FindElement(By.XPath("//option[. = 'Confections']")).Click();
-            }
-            {
-                var dropdown = driver.FindElement(By.Id("SupplierId"));
-                dropdown.FindElement(By.XPath("//option[. = 'Pavlova, Ltd.']")).Click();
-            }
-            driver.FindElement(By.Id("UnitPrice")).SendKeys(Data.UnitPriceToInput);
-            driver.FindElement(By.Id("QuantityPerUnit")).SendKeys(Data.QuantityPerUnit);
-            driver.FindElement(By.Id("UnitsInStock")).SendKeys(Data.UnitsInStock);
-            driver.FindElement(By.Id("UnitsOnOrder")).SendKeys(Data.UnitsOnOrder);
-            driver.FindElement(By.Id("ReorderLevel")).SendKeys(Data.ReorderLevel);
-            driver.FindElement(By.Id("Discontinued")).Click();
-            driver.FindElement(By.CssSelector(".btn")).Click();
-            Assert.That(driver.FindElement(By.XPath("//h2[contains(.,\'All Products\')]")).Text, Is.EqualTo("All Products"));
+            allProductsPage = mainPage.AllProductsLink();
+            Assert.That(assertions.ReturnHeader("All Products"), Is.EqualTo("All Products"));
+            editPage = allProductsPage.ClickOn("Create new");
+            Assert.That(assertions.ReturnHeader("Product editing"), Is.EqualTo("Product editing"));
+            editPage.Select("ProductName", Data.ProductName);
+            editPage.ToDropDown("CategoryId", Data.CategoryId);
+            editPage.ToDropDown("SupplierId", Data.SupplierId);
+            editPage.Select("UnitPrice", Data.UnitPriceToInput);
+            editPage.Select("QuantityPerUnit", Data.QuantityPerUnit);
+            editPage.Select("UnitsInStock", Data.UnitsInStock);
+            editPage.Select("UnitsOnOrder", Data.UnitsOnOrder);
+            editPage.Select("ReorderLevel", Data.ReorderLevel);
+            editPage.DiscontinuedCheck();
+            editPage.Submit();
+            Assert.That(assertions.ReturnHeader("All Products"), Is.EqualTo("All Products"));
         }
 
         [Test]
         public void Test3_Open()
         {
-            driver.FindElement(By.CssSelector(".container-fluid:nth-child(3) > div:nth-child(1) > a")).Click();
-            driver.FindElement(By.LinkText("Biscuits")).Click();
-            {
-                string value = driver.FindElement(By.Id("ProductName")).GetAttribute("value");
-                Assert.That(value, Is.EqualTo(Data.ProductName));
-            }
-            Assert.That(driver.FindElement(By.XPath("//*[@id=\"CategoryId\"]/option[@selected]")).Text, Is.EqualTo("Confections"));
-            Assert.That(driver.FindElement(By.XPath("//*[@id=\"SupplierId\"]/option[@selected]")).Text, Is.EqualTo("Pavlova, Ltd."));
-            {
-                string value = driver.FindElement(By.Id("UnitPrice")).GetAttribute("value");
-                Assert.That(value, Is.EqualTo(Data.UnitPriceToRead));
-            }
-            {
-                string value = driver.FindElement(By.Id("QuantityPerUnit")).GetAttribute("value");
-                Assert.That(value, Is.EqualTo(Data.QuantityPerUnit));
-            }
-            {
-                string value = driver.FindElement(By.Id("UnitsInStock")).GetAttribute("value");
-                Assert.That(value, Is.EqualTo(Data.UnitsInStock));
-            }
-            {
-                string value = driver.FindElement(By.Id("UnitsOnOrder")).GetAttribute("value");
-                Assert.That(value, Is.EqualTo(Data.UnitsOnOrder));
-            }
-            {
-                string value = driver.FindElement(By.Id("ReorderLevel")).GetAttribute("value");
-                Assert.That(value, Is.EqualTo(Data.ReorderLevel));
-            }
-            {
-                string value = driver.FindElement(By.Id("Discontinued")).GetAttribute("value");
-                Assert.That(value, Is.EqualTo("true"));
-            }
+            allProductsPage = mainPage.AllProductsLink();
+            editPage = allProductsPage.ClickOn(Data.ProductName);
+            Assert.That(assertions.Check("ProductName"), Is.EqualTo(Data.ProductName));
+            Assert.That(assertions.CheckDropDown("CategoryId"), Is.EqualTo(Data.CategoryId));
+            Assert.That(assertions.CheckDropDown("SupplierId"), Is.EqualTo(Data.SupplierId));
+            Assert.That(assertions.Check("UnitPrice"), Is.EqualTo(Data.UnitPriceToRead));
+            Assert.That(assertions.Check("QuantityPerUnit"), Is.EqualTo(Data.QuantityPerUnit));
+            Assert.That(assertions.Check("UnitsInStock"), Is.EqualTo(Data.UnitsInStock));
+            Assert.That(assertions.Check("UnitsOnOrder"), Is.EqualTo(Data.UnitsOnOrder));
+            Assert.That(assertions.Check("ReorderLevel"), Is.EqualTo(Data.ReorderLevel));
+            Assert.That(assertions.Check("Discontinued"), Is.EqualTo(Data.Discontinued));
         }
 
         [Test]
         public void Test4_Delete()
         {
-            driver.FindElement(By.CssSelector(".container-fluid:nth-child(3) > div:nth-child(1) > a")).Click();
-            driver.FindElement(By.XPath("//tr/td/a[text()=\"Biscuits\"]//following::td//a[text()=\"Remove\"]")).Click();
-            driver.SwitchTo().Alert().Accept();
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(By.XPath("//tr/td/a[text()=\"Biscuits\"]")));
-            var element = driver.FindElements(By.XPath("//tr[last()]/td/a[text()=\"Biscuits\"]"));
-            Assert.True(element.Count == 0);
+            allProductsPage = mainPage.AllProductsLink();
+            allProductsPage.RemoveProduct(Data.ProductName);
+            Assert.True(assertions.IsNotExist(Data.ProductName) == 0);
         }
 
         [Test]
         public void Test5_LogOut()
         {
-            driver.FindElement(By.LinkText("Logout")).Click();
-            Assert.That(driver.FindElement(By.XPath("//h2[contains(.,\'Login\')]")).Text, Is.EqualTo("Login"));
+            mainPage.LogOutLink();
+            Assert.That(assertions.ReturnHeader("Login"), Is.EqualTo("Login"));
         }
 
         

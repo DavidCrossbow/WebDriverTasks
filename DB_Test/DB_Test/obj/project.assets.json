@@ -2,6 +2,31 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "DotNetSeleniumExtras.PageObjects/3.11.0": {
+        "type": "package",
+        "dependencies": {
+          "Selenium.WebDriver": "3.10.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/SeleniumExtras.PageObjects.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SeleniumExtras.PageObjects.dll": {}
+        }
+      },
+      "DotNetSeleniumExtras.PageObjects.Core/3.12.0": {
+        "type": "package",
+        "dependencies": {
+          "Selenium.WebDriver": "3.12.0",
+          "System.Reflection.DispatchProxy": "4.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/SeleniumExtras.PageObjects.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SeleniumExtras.PageObjects.dll": {}
+        }
+      },
       "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
         "type": "package",
         "dependencies": {
@@ -491,7 +516,7 @@
           "lib/netstandard2.0/WebDriver.dll": {}
         }
       },
-      "Selenium.WebDriver.ChromeDriver/83.0.4103.3900-beta": {
+      "Selenium.WebDriver.ChromeDriver/83.0.4103.3900": {
         "type": "package",
         "build": {
           "build/Selenium.WebDriver.ChromeDriver.targets": {}
@@ -848,6 +873,15 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Reflection.dll": {}
+        }
+      },
+      "System.Reflection.DispatchProxy/4.4.0": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/_._": {}
         }
       },
       "System.Reflection.Emit/4.3.0": {
@@ -1236,6 +1270,36 @@
     }
   },
   "libraries": {
+    "DotNetSeleniumExtras.PageObjects/3.11.0": {
+      "sha512": "DJCLQ3beq1fzqpeQ5jTZwDqmzbOD2Xxsb/jCyShYam88CNwGGn5aBBqu4LVSj0sy0Ai76OauQQncYlC48VvQUQ==",
+      "type": "package",
+      "path": "dotnetseleniumextras.pageobjects/3.11.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dotnetseleniumextras.pageobjects.3.11.0.nupkg.sha512",
+        "dotnetseleniumextras.pageobjects.nuspec",
+        "lib/net35/SeleniumExtras.PageObjects.dll",
+        "lib/net40/SeleniumExtras.PageObjects.dll",
+        "lib/net45/SeleniumExtras.PageObjects.dll",
+        "lib/netstandard2.0/SeleniumExtras.PageObjects.dll"
+      ]
+    },
+    "DotNetSeleniumExtras.PageObjects.Core/3.12.0": {
+      "sha512": "FcwAc221M6DIzy1yiYfed4FfoS6tZsI/Kkb1qGl8ChP9UELMi00VVMrHE+VsOtu9q5BvkoqyD4uXlm/5KJX3/Q==",
+      "type": "package",
+      "path": "dotnetseleniumextras.pageobjects.core/3.12.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dotnetseleniumextras.pageobjects.core.3.12.0.nupkg.sha512",
+        "dotnetseleniumextras.pageobjects.core.nuspec",
+        "lib/net35/SeleniumExtras.PageObjects.dll",
+        "lib/net40/SeleniumExtras.PageObjects.dll",
+        "lib/net45/SeleniumExtras.PageObjects.dll",
+        "lib/netstandard2.0/SeleniumExtras.PageObjects.dll"
+      ]
+    },
     "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
       "sha512": "xc6jVVl5ymgk3ZNWnC/KHxkEup1QpnwYbrwF+NQoCOGERsD8YMlLwmsX4lGhLXCLo/YQTRTIwlKCN9E/doGUNg==",
       "type": "package",
@@ -1979,10 +2043,10 @@
         "selenium.webdriver.nuspec"
       ]
     },
-    "Selenium.WebDriver.ChromeDriver/83.0.4103.3900-beta": {
-      "sha512": "+Um8AupSUEzKBN80oHKHXCI1fZCmgMxsLMUuBlxG3kcwFoGlssPEGPTvWQBBTvwv/Ck340quzv02G8MGnXWQpA==",
+    "Selenium.WebDriver.ChromeDriver/83.0.4103.3900": {
+      "sha512": "lbVAHeSPf5E0IJNtsO5sf1rQhaA1ePoHfaA3o2XZBMsQVDOkM1WpDeTe9KyuPKabdluUvVbt7vkufxlZLCGJ6w==",
       "type": "package",
-      "path": "selenium.webdriver.chromedriver/83.0.4103.3900-beta",
+      "path": "selenium.webdriver.chromedriver/83.0.4103.3900",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1990,7 +2054,7 @@
         "driver/linux64/chromedriver",
         "driver/mac64/chromedriver",
         "driver/win32/chromedriver.exe",
-        "selenium.webdriver.chromedriver.83.0.4103.3900-beta.nupkg.sha512",
+        "selenium.webdriver.chromedriver.83.0.4103.3900.nupkg.sha512",
         "selenium.webdriver.chromedriver.nuspec"
       ]
     },
@@ -3184,6 +3248,52 @@
         "ref/xamarinwatchos10/_._",
         "system.reflection.4.3.0.nupkg.sha512",
         "system.reflection.nuspec"
+      ]
+    },
+    "System.Reflection.DispatchProxy/4.4.0": {
+      "sha512": "xK6JE0mpsBD+T0qu3V6dmVRa06PxAvIIM/zSjouqP7Sk6X+FQj+9XFRz9GmZk9aJGMU1LX6AgTZIlsYZ64QKsw==",
+      "type": "package",
+      "path": "system.reflection.dispatchproxy/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.Reflection.DispatchProxy.dll",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.3/System.Reflection.DispatchProxy.dll",
+        "lib/netstandard2.0/System.Reflection.DispatchProxy.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.3/System.Reflection.DispatchProxy.dll",
+        "ref/netstandard1.3/System.Reflection.DispatchProxy.xml",
+        "ref/netstandard1.3/de/System.Reflection.DispatchProxy.xml",
+        "ref/netstandard1.3/es/System.Reflection.DispatchProxy.xml",
+        "ref/netstandard1.3/fr/System.Reflection.DispatchProxy.xml",
+        "ref/netstandard1.3/it/System.Reflection.DispatchProxy.xml",
+        "ref/netstandard1.3/ja/System.Reflection.DispatchProxy.xml",
+        "ref/netstandard1.3/ko/System.Reflection.DispatchProxy.xml",
+        "ref/netstandard1.3/ru/System.Reflection.DispatchProxy.xml",
+        "ref/netstandard1.3/zh-hans/System.Reflection.DispatchProxy.xml",
+        "ref/netstandard1.3/zh-hant/System.Reflection.DispatchProxy.xml",
+        "ref/netstandard2.0/System.Reflection.DispatchProxy.dll",
+        "ref/netstandard2.0/System.Reflection.DispatchProxy.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/aot/lib/netcore50/System.Reflection.DispatchProxy.dll",
+        "system.reflection.dispatchproxy.4.4.0.nupkg.sha512",
+        "system.reflection.dispatchproxy.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Reflection.Emit/4.3.0": {
@@ -4625,12 +4735,14 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "DotNetSeleniumExtras.PageObjects >= 3.11.0",
+      "DotNetSeleniumExtras.PageObjects.Core >= 3.12.0",
       "DotNetSeleniumExtras.WaitHelpers >= 3.11.0",
       "Microsoft.NET.Test.Sdk >= 16.6.1",
       "NUnit3TestAdapter >= 3.16.1",
       "Selenium.Support >= 3.141.0",
       "Selenium.WebDriver >= 3.141.0",
-      "Selenium.WebDriver.ChromeDriver >= 83.0.4103.3900-beta",
+      "Selenium.WebDriver.ChromeDriver >= 83.0.4103.3900",
       "nunit >= 3.12.0"
     ]
   },
@@ -4671,6 +4783,14 @@
     "frameworks": {
       "netcoreapp3.1": {
         "dependencies": {
+          "DotNetSeleniumExtras.PageObjects": {
+            "target": "Package",
+            "version": "[3.11.0, )"
+          },
+          "DotNetSeleniumExtras.PageObjects.Core": {
+            "target": "Package",
+            "version": "[3.12.0, )"
+          },
           "DotNetSeleniumExtras.WaitHelpers": {
             "target": "Package",
             "version": "[3.11.0, )"
@@ -4695,7 +4815,7 @@
           },
           "Selenium.WebDriver.ChromeDriver": {
             "target": "Package",
-            "version": "[83.0.4103.3900-beta, )"
+            "version": "[83.0.4103.3900, )"
           },
           "nunit": {
             "target": "Package",
