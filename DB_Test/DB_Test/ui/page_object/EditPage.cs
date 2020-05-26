@@ -35,6 +35,17 @@ namespace DB_Test
             new Actions(driver).SendKeys(Keys.Enter).Build().Perform();
             return new AllProductsPage(driver, wait);
         }
+        public string Check(string category)
+        {
+            return driver.FindElement(By.Id($"{category}")).GetAttribute("value");
+        }
+        public string CheckDropDown(string category)
+        {
+            return driver.FindElement(By.XPath($"//*[@id=\"{category}\"]/option[@selected]")).Text;
+        }
+
+
+
     }
 }
 

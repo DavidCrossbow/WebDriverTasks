@@ -2,8 +2,6 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DB_Test.test
 {
@@ -14,8 +12,6 @@ namespace DB_Test.test
         protected MainPage mainPage;
         protected AllProductsPage allProductsPage;
         protected EditPage editPage;
-        protected Results results;
-
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -23,7 +19,6 @@ namespace DB_Test.test
             driver = new OpenQA.Selenium.Chrome.ChromeDriver();
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
             mainPage = new MainPage(driver, wait);
-            results = new Results(driver);
         }
 
         [SetUp]

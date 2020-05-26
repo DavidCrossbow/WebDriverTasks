@@ -3,9 +3,6 @@ using DB_Test.service.iu;
 using DB_Test.test;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
 using System.IO;
 
 namespace DB_Test
@@ -18,45 +15,45 @@ namespace DB_Test
         [Test]
         public void Test1_LogIn()
         {
-            Assert.That(results.ReturnHeader("Login"), Is.EqualTo("Login"));
+            Assert.That(mainPage.ReturnHeader("Login"), Is.EqualTo("Login"));
             mainPage.LogIn(login.Username, login.Password);
-            Assert.That(results.ReturnHeader("Home page"), Is.EqualTo("Home page"));
+            Assert.That(mainPage.ReturnHeader("Home page"), Is.EqualTo("Home page"));
         }
 
         [Test]
         public void Test2_InsertNew()
         {
-            allProductsPage = Service.CreateN(product, driver, wait);
-            Assert.That(results.ReturnHeader("All Products"), Is.EqualTo("All Products"));
+            allProductsPage = Service.CreateNew(product, driver, wait);
+            Assert.That(allProductsPage.ReturnHeader("All Products"), Is.EqualTo("All Products"));
         }
 
         [Test]
         public void Test3_Open()
         {
-            editPage = Service.EditP(product, driver, wait);
-            Assert.That(results.Check("ProductName"), Is.EqualTo(product.ProductName));
-            Assert.That(results.CheckDropDown("CategoryId"), Is.EqualTo(product.CategoryId));
-            Assert.That(results.CheckDropDown("SupplierId"), Is.EqualTo(product.SupplierId));
-            Assert.That(results.Check("UnitPrice"), Is.EqualTo(product.UnitPriceToRead));
-            Assert.That(results.Check("QuantityPerUnit"), Is.EqualTo(product.QuantityPerUnit));
-            Assert.That(results.Check("UnitsInStock"), Is.EqualTo(product.UnitsInStock));
-            Assert.That(results.Check("UnitsOnOrder"), Is.EqualTo(product.UnitsOnOrder));
-            Assert.That(results.Check("ReorderLevel"), Is.EqualTo(product.ReorderLevel));
-            Assert.That(results.Check("Discontinued"), Is.EqualTo(product.Discontinued));
+            editPage = Service.EditPage(product, driver, wait);
+            Assert.That(editPage.Check("ProductName"), Is.EqualTo(product.ProductName));
+            Assert.That(editPage.CheckDropDown("CategoryId"), Is.EqualTo(product.CategoryId));
+            Assert.That(editPage.CheckDropDown("SupplierId"), Is.EqualTo(product.SupplierId));
+            Assert.That(editPage.Check("UnitPrice"), Is.EqualTo(product.UnitPriceToRead));
+            Assert.That(editPage.Check("QuantityPerUnit"), Is.EqualTo(product.QuantityPerUnit));
+            Assert.That(editPage.Check("UnitsInStock"), Is.EqualTo(product.UnitsInStock));
+            Assert.That(editPage.Check("UnitsOnOrder"), Is.EqualTo(product.UnitsOnOrder));
+            Assert.That(editPage.Check("ReorderLevel"), Is.EqualTo(product.ReorderLevel));
+            Assert.That(editPage.Check("Discontinued"), Is.EqualTo(product.Discontinued));
         }
 
         [Test]
         public void Test4_Delete()
         {
-            allProductsPage = Service.DeleteP(product, driver, wait);
-            Assert.True(results.IsNotExist(product.ProductName) == 0);
+            allProductsPage = Service.DeletePage(product, driver, wait);
+            Assert.True(allProductsPage.IsNotExist(product.ProductName) == 0);
         }
 
         [Test]
         public void Test5_LogOut()
         {
             mainPage.LogOutLink();
-            Assert.That(results.ReturnHeader("Login"), Is.EqualTo("Login"));
+            Assert.That(mainPage.ReturnHeader("Login"), Is.EqualTo("Login"));
         }
     }
 }

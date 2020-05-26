@@ -32,5 +32,9 @@ namespace DB_Test
         {
             new Actions(driver).Click(LogOut).Build().Perform();
         }
+        public string ReturnHeader(string header)
+        {
+            return driver.FindElement(By.XPath($"//h2[contains(.,\'{header}\')]")).Text;
+        }
     }
 }

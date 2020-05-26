@@ -1,23 +1,20 @@
 ﻿using DB_Test.business_object;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DB_Test.service.iu
 {
     public class Service
     {
         
-        public static EditPage EditP (Product product, IWebDriver driver, WebDriverWait wait)
+        public static EditPage EditPage (Product product, IWebDriver driver, WebDriverWait wait)
         {
             MainPage mainPage = new MainPage(driver, wait);
             AllProductsPage allProductsPage = mainPage.AllProductsLink();
             return allProductsPage.ClickOn(product.ProductName);
         }    
 
-        public static AllProductsPage CreateN (Product product, IWebDriver driver, WebDriverWait wait)
+        public static AllProductsPage CreateNew (Product product, IWebDriver driver, WebDriverWait wait)
         {
             MainPage mainPage = new MainPage(driver, wait);
             AllProductsPage allProductsPage = mainPage.AllProductsLink();
@@ -33,7 +30,7 @@ namespace DB_Test.service.iu
             editPage.DiscontinuedCheck();
             return editPage.Submit();
         }
-        public static AllProductsPage DeleteP (Product product, IWebDriver driver, WebDriverWait wait)
+        public static AllProductsPage DeletePage (Product product, IWebDriver driver, WebDriverWait wait)
         {
             MainPage mainPage = new MainPage(driver, wait);
             AllProductsPage allProductsPage = mainPage.AllProductsLink();

@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
 namespace DB_Test
@@ -28,6 +27,14 @@ namespace DB_Test
             driver.FindElement(By.XPath($"//tr/td/a[text()=\"{productName}\"]//following::td//a[text()=\"Remove\"]")).Click();
             driver.SwitchTo().Alert().Accept();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(By.XPath($"//tr/td/a[text()=\"{productName}\"]")));
+        }
+        public string ReturnHeader(string header)
+        {
+            return driver.FindElement(By.XPath($"//h2[contains(.,\'{header}\')]")).Text;
+        }
+        public int IsNotExist(string productName)
+        {
+            return driver.FindElements(By.XPath($"//tr/td/a[text()=\"{productName}\"]")).Count;
         }
     }
 }
