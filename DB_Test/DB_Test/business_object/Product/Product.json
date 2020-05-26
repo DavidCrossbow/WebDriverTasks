@@ -1,0 +1,12 @@
+{
+	"ProductName" : "Biscuits",
+    "CategoryId" : "Confections",
+    "SupplierId" : "Pavlova, Ltd.",
+    "UnitPriceToInput" : "15",
+    "UnitPriceToRead" : "15,0000",
+    "QuantityPerUnit" : "40",
+    "UnitsInStock" : "36",
+    "UnitsOnOrder" : "9",
+    "ReorderLevel" : "20",
+    "Discontinued" : "true"
+}
