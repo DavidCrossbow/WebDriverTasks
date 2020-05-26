@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DB_Test.business_object
 {
-    class LogIn
+    public class LogIn
     {
         public string Username { get; set; }
         public string Password { get; set; }

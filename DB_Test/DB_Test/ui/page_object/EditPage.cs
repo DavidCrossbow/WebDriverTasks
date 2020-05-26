@@ -14,7 +14,6 @@ namespace DB_Test
             this.driver = driver;
             this.wait = wait;
         }
-        //private IWebElement Discontinued => driver.FindElement(By.Id("Discontinued"));
         public void Select(string category, string value)
         {
             var element = driver.FindElement(By.Id($"{category}"));

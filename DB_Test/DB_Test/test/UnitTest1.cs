@@ -16,7 +16,7 @@ namespace DB_Test
         public void Test1_LogIn()
         {
             Assert.That(mainPage.ReturnHeader("Login"), Is.EqualTo("Login"));
-            mainPage.LogIn(login.Username, login.Password);
+            mainPage.Autorization(login);
             Assert.That(mainPage.ReturnHeader("Home page"), Is.EqualTo("Home page"));
         }
 

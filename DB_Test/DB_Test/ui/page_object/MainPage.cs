@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using DB_Test.business_object;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
@@ -17,10 +18,10 @@ namespace DB_Test
         private IWebElement PasswordField => driver.FindElement(By.Id("Password"));
         private IWebElement AllProducts => driver.FindElement(By.CssSelector(".container-fluid:nth-child(3) > div:nth-child(1) > a"));
         private IWebElement LogOut => driver.FindElement(By.LinkText("Logout"));
-        public void LogIn (string name, string password)
+        public void Autorization (LogIn login)
         {
-            new Actions(driver).Click(NameField).SendKeys(name).Build().Perform();
-            new Actions(driver).Click(PasswordField).SendKeys(password).Build().Perform();
+            new Actions(driver).Click(NameField).SendKeys(login.Username).Build().Perform();
+            new Actions(driver).Click(PasswordField).SendKeys(login.Password).Build().Perform();
             new Actions(driver).SendKeys(Keys.Enter).Build().Perform();
         }
         public AllProductsPage AllProductsLink()
